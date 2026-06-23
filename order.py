@@ -10,8 +10,8 @@ class Order:
     price: float
     order_type: str    # LIMIT or MARKET
 
-    order_id: str = field(default_factory=lambda: str(uuid.uuid4()))
-    timestamp: datetime = field(default_factory=datetime.now)
+    order_id: str = field(init = False,default_factory=lambda: str(uuid.uuid4())) #should not be passed as a parameter to the constructor
+    timestamp: datetime = field(init = False,default_factory=datetime.now) #same reasoning as above
 
     def __post_init__(self):
 

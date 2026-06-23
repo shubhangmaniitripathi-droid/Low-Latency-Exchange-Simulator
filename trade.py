@@ -1,6 +1,6 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import datetime
-
+import uuid
 
 @dataclass
 class Trade:
@@ -9,4 +9,5 @@ class Trade:
     quantity: int
     price: float
 
-    timestamp: datetime = datetime.now()
+    timestamp: datetime = field(init = False, default_factory=datetime.now)
+    trade_id: str = field(init = False, default_factory=uuid.uuid4)

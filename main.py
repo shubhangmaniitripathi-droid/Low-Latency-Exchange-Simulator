@@ -1,11 +1,11 @@
 from order import Order
 
 
-order = Order(
+ord1 = Order(
     side="BUY",
     quantity=100,
     price=105,
     order_type="LIMIT"
 )
 
-print(order)
+print(ord1)
