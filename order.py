@@ -21,8 +21,13 @@ class Order:
         if self.side not in ["BUY", "SELL"]:
             raise ValueError("side must be BUY or SELL")
 
-        if self.order_type not in ["LIMIT", "MARKET"]:
-            raise ValueError("order_type must be LIMIT or MARKET")
+        if self.order_type == "LIMIT":
+            if self.price <= 0:
+                raise ValueError(
+                    "price must be positive"
+                )
+            elif self.order_type == "MARKET":
+                self.price = 0
 
         if self.quantity <= 0:
             raise ValueError("quantity must be positive")

@@ -1,7 +1,6 @@
 from collections import deque
 import heapq
 
-
 class OrderBook:
     def __init__(self):
 
@@ -12,6 +11,7 @@ class OrderBook:
         self.sell_prices = [] #min heap to ensure lowest sell price\ask at top
 
         self.order_lookup = {} #to keep track of orders and order ids for deletion
+
     def add_order(self, order):
         self.order_lookup[order.order_id] = order
         if order.side == "BUY":
@@ -53,3 +53,26 @@ class OrderBook:
             print(
                 f"Price: {price} | Volume: {volume}"
             )
+    def get_best_bid(self):
+        while self.buy_prices:
+            best_price = -self.buy_prices[0]
+            if best_price in self.buy_levels:
+                return best_price
+            heapq.heappop(self.buy_prices)
+        return None
+    
+    def get_best_ask(self):
+        while self.sell_prices:
+            best_price = self.sell_prices[0]
+            if best_price in self.sell_levels:
+                return best_price
+            heapq.heappop(self.sell_prices)
+        return None
+    
+    def remove_price_level(self, side, price):
+        if side == "BUY":
+            if (price in self.buy_levels and len(self.buy_levels[price]) == 0):
+                del self.buy_levels[price]
+        else:
+            if (price in self.sell_levels and len(self.sell_levels[price]) == 0):
+                del self.sell_levels[price]
